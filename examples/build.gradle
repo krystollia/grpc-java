@@ -51,11 +51,19 @@ task helloWorldClient(type: CreateStartScripts) {
     classpath = jar.outputs.files + project.configurations.runtime
 }
 
+task biClient(type: CreateStartScripts) {
+    mainClassName = "io.grpc.examples.bi.BiClient"
+    applicationName = "bi-client"
+    outputDir = new File(project.buildDir, 'tmp')
+    classpath = jar.outputs.files + project.configurations.runtime
+}
+
 applicationDistribution.into("bin") {
     from(routeGuideServer)
     from(routeGuideClient)
     from(helloWorldServer)
     from(helloWorldClient)
+    from(biClient)
     fileMode = 0755
 }
 
